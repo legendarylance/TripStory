@@ -29,8 +29,12 @@ public class MainActivity extends AppCompatActivity {
         img_b4 = (ImageButton) findViewById(R.id.imageButton4);
         img_b5 = (ImageButton) findViewById(R.id.imageButton5);
         img_b6 = (ImageButton) findViewById(R.id.imageButton6);
-
         srory_frame = (ImageView) findViewById(R.id.storyFrame);
+
+//        Idea, we can have 2 global variables, one that keep track of storyline
+//        and the other one that keep track of frame number (could be just one variable actually)
+//        all the images are pulled from the web or drawables and populated
+//        based on logic coming from realm
 
 
         Drawable myDrawable1 = getResources().getDrawable(R.drawable.ant);
