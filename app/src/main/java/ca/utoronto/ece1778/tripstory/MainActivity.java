@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 //        Frame number will be pulled from global variable that will keep track of the frame number
 //        Choice will be pulled from button pressed
 //
-//        Realm Database will have the following tables
+//        Realm Database will have the following tables (or this could be JSON)
 //
 //        Frame2Choice1 {storyFrameImg_url, btn1_url, btn2_url, ...}
 //        Frame2Choice2 {storyFrameImg_url, btn1_url, btn2_url, ...}
