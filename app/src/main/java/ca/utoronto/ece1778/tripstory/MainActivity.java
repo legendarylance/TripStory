@@ -37,6 +37,25 @@ public class MainActivity extends AppCompatActivity {
 //        based on logic coming from realm
 //
 //        In Realm, we can have tables corresponding to each frame and choice
+
+//        For example:
+//        Frame1 {storyFrameImg_url, btn1_url, btn2_url, ...}
+//        urls are links to images
+
+//        btn1 always has a link to 1, btn2 to 2, etc.
+//        when btn 3, for example is pressed, the query goes as follow:
+//
+//        pull data from Frame2Choice3
+
+//        Frame number will be pulled from global variable that will keep track of the frame number
+//        Choice will be pulled from button pressed
+//
+//        Realm Database will have the following tables
+//
+//        Frame2Choice1 {storyFrameImg_url, btn1_url, btn2_url, ...}
+//        Frame2Choice2 {storyFrameImg_url, btn1_url, btn2_url, ...}
+//        Frame2Choice3 {storyFrameImg_url, btn1_url, btn2_url, ...}
+//        etc.
 //
 
 
