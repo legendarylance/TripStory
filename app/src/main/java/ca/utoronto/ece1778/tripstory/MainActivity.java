@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 //        and the other one that keep track of frame number (could be just one variable actually)
 //        all the images are pulled from the web or drawables and populated
 //        based on logic coming from realm
+//
+//        In Realm, we can have tables corresponding to each frame and choice
+//
 
 
         Drawable myDrawable1 = getResources().getDrawable(R.drawable.ant);
