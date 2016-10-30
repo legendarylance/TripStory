@@ -3,10 +3,15 @@ package ca.utoronto.ece1778.tripstory;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -16,9 +21,17 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,19 +42,37 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton img_b5;
     private ImageButton img_b6;
     private ImageView srory_frame;
+    private TextView StorylineText;
+    private Realm realm;
+    public int CurrentFrame = 1;
+    public int MaxFrames = 3;
+    public String framePic;
+    public String Im1;
+    public String Im2;
+    public String Im3;
+    public String Im4;
+    public String Im5;
+    public String Im6;
+    public String question;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        View view = findViewById(R.id.imageButton1);
+
+        // Initialize the internal Realm Database
+        initRealm();
+
+        // Set the layout
         setContentView(R.layout.activity_main);
 
-        img_b1 = (ImageButton) findViewById(R.id.imageButton1);
-        img_b2 = (ImageButton) findViewById(R.id.imageButton2);
-        img_b3 = (ImageButton) findViewById(R.id.imageButton3);
-        img_b4 = (ImageButton) findViewById(R.id.imageButton4);
-        img_b5 = (ImageButton) findViewById(R.id.imageButton5);
-        img_b6 = (ImageButton) findViewById(R.id.imageButton6);
-        srory_frame = (ImageView) findViewById(R.id.storyFrame);
+        // Create JSON and convert into Realm Object
+        initJSON();
+
 
 //        Idea, we can have 2 global variables, one that keep track of storyline
 //        and the other one that keep track of frame number (could be just one variable actually)
@@ -70,36 +101,129 @@ public class MainActivity extends AppCompatActivity {
 //        etc.
 //
 
+        /*
+        // Button needs to be pressed before moving to the multi-threaded bitmap decoding
+        Button1 = (Button) findViewById(R.id.button1);
 
-        Drawable myDrawable1 = getResources().getDrawable(R.drawable.ant);
+        Button1.setOnClickListener(new AdapterView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        */
+
+
+
+
+    }
+
+
+    public void nextFrame(View view) {
+
+        if (CurrentFrame < MaxFrames) {
+            CurrentFrame++;
+        } else {
+            //do something here
+        }
+
+        // Create the next frame
+        initRealm();
+        initJSON();
+
+    }
+
+    public Realm initRealm() {
+        // Realm Database setup --------------------------------------------------------------------
+        Realm.init(this);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .build();
+
+        realm = Realm.getInstance(realmConfiguration);
+        return realm;
+    }
+
+    public void initJSON() {
+
+        img_b1 = (ImageButton) findViewById(R.id.imageButton1);
+        img_b2 = (ImageButton) findViewById(R.id.imageButton2);
+        img_b3 = (ImageButton) findViewById(R.id.imageButton3);
+        img_b4 = (ImageButton) findViewById(R.id.imageButton4);
+        img_b5 = (ImageButton) findViewById(R.id.imageButton5);
+        img_b6 = (ImageButton) findViewById(R.id.imageButton6);
+        srory_frame = (ImageView) findViewById(R.id.storyFrame);
+        StorylineText = (TextView) findViewById(R.id.textView);
+
+        // TravelSpots is an example of a destination that will be used for the spiral 2 presentation
+        // In the future, a json will be created for each possible destination.
+
+        // Create a Realm object by reading the pre-existing json file
+        try {
+            InputStream stream = getAssets().open("zoo.json");
+            realm.beginTransaction();
+            realm.createAllFromJson(JSONCreator.class, stream);
+            realm.commitTransaction();
+        } catch (IOException e) {
+//                realm.cancelTransaction();
+            System.err.println(e);
+            e.printStackTrace();
+        }
+
+        //Run the query to determine the icons to be displayed in the frame at a given time.
+
+        RealmResults<JSONCreator> query = realm.where(JSONCreator.class)
+                .equalTo("frame", CurrentFrame)
+                .findAll();
+        System.out.println("query = " + query);
+
+        String Im1 = query.get(0).getIm1();
+        String Im2 = query.get(0).getIm2();
+        String Im3 = query.get(0).getIm3();
+        String Im4 = query.get(0).getIm4();
+        String Im5 = query.get(0).getIm5();
+        String Im6 = query.get(0).getIm6();
+        //String Frame = query.get(0).getFrame();
+        String framePic = query.get(0).getFramePic();
+        String question = query.get(0).getQuestion();
+
+        StorylineText.setText(question);
+
+        Drawable myDrawable1 = getDrawable(getResources().getIdentifier(Im1,"drawable","ca.utoronto.ece1778.tripstory"));
         Bitmap anImage1      = ((BitmapDrawable) myDrawable1).getBitmap();
         img_b1.setImageBitmap(anImage1);
 
-        Drawable myDrawable2 = getResources().getDrawable(R.drawable.bee);
+        Drawable myDrawable2 = getDrawable(getResources().getIdentifier(Im2,"drawable","ca.utoronto.ece1778.tripstory"));
         Bitmap anImage2      = ((BitmapDrawable) myDrawable2).getBitmap();
         img_b2.setImageBitmap(anImage2);
 
-        Drawable myDrawable3 = getResources().getDrawable(R.drawable.cat);
+        Drawable myDrawable3 = getDrawable(getResources().getIdentifier(Im3,"drawable","ca.utoronto.ece1778.tripstory"));
         Bitmap anImage3      = ((BitmapDrawable) myDrawable3).getBitmap();
         img_b3.setImageBitmap(anImage3);
 
-        Drawable myDrawable4 = getResources().getDrawable(R.drawable.dog);
+        Drawable myDrawable4 = getDrawable(getResources().getIdentifier(Im4,"drawable","ca.utoronto.ece1778.tripstory"));
         Bitmap anImage4      = ((BitmapDrawable) myDrawable4).getBitmap();
         img_b4.setImageBitmap(anImage4);
 
-        Drawable myDrawable5 = getResources().getDrawable(R.drawable.dragon);
+        Drawable myDrawable5 = getDrawable(getResources().getIdentifier(Im5,"drawable","ca.utoronto.ece1778.tripstory"));
         Bitmap anImage5      = ((BitmapDrawable) myDrawable5).getBitmap();
         img_b5.setImageBitmap(anImage5);
 
-        Drawable myDrawable6 = getResources().getDrawable(R.drawable.fish);
+        Drawable myDrawable6 = getDrawable(getResources().getIdentifier(Im6,"drawable","ca.utoronto.ece1778.tripstory"));
         Bitmap anImage6      = ((BitmapDrawable) myDrawable6).getBitmap();
         img_b6.setImageBitmap(anImage6);
 
 
-        Drawable FrameImg = getResources().getDrawable(R.drawable.frame1);
+        Drawable FrameImg = getDrawable(getResources().getIdentifier(framePic,"drawable","ca.utoronto.ece1778.tripstory"));
         Bitmap frameImg      = ((BitmapDrawable) FrameImg).getBitmap();
         srory_frame.setImageBitmap(frameImg);
 
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close(); // Remember to close Realm when done.
     }
 
 
