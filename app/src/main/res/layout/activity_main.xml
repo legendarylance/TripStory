@@ -55,8 +55,7 @@ tools:context="ca.utoronto.ece1778.tripstory.MainActivity">
             app:srcCompat="@android:drawable/btn_star_big_on"
             android:id="@+id/imageButton1"
             android:layout_weight=".25"
-            android:clickable="true"
-            android:onClick="nextFrame"/>
+            android:clickable="true"/>
 
 
         <ImageButton
@@ -65,8 +64,7 @@ tools:context="ca.utoronto.ece1778.tripstory.MainActivity">
             app:srcCompat="@android:drawable/btn_star_big_on"
             android:id="@+id/imageButton2"
             android:layout_weight=".25"
-            android:clickable="true"
-            android:onClick="nextFrame"/>
+            android:clickable="true"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -74,8 +72,7 @@ tools:context="ca.utoronto.ece1778.tripstory.MainActivity">
                 app:srcCompat="@android:drawable/btn_star_big_on"
                 android:id="@+id/imageButton3"
                 android:layout_weight=".25"
-                android:clickable="true"
-                android:onClick="nextFrame"/>
+                android:clickable="true"/>
 
         </LinearLayout>
         </LinearLayout>
@@ -97,8 +94,7 @@ tools:context="ca.utoronto.ece1778.tripstory.MainActivity">
                 app:srcCompat="@android:drawable/btn_star_big_on"
                 android:id="@+id/imageButton4"
                 android:layout_weight=".25"
-                android:clickable="true"
-                android:onClick="nextFrame"/>
+                android:clickable="true"/>
 
 
             <ImageButton
@@ -108,7 +104,7 @@ tools:context="ca.utoronto.ece1778.tripstory.MainActivity">
                 android:id="@+id/imageButton5"
                 android:layout_weight=".25"
                 android:clickable="true"
-                android:onClick="nextFrame"/>
+                />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -116,8 +112,7 @@ tools:context="ca.utoronto.ece1778.tripstory.MainActivity">
                 app:srcCompat="@android:drawable/btn_star_big_on"
                 android:id="@+id/imageButton6"
                 android:layout_weight=".25"
-                android:clickable="true"
-                android:onClick="nextFrame"/>
+                android:clickable="true"/>
 
         </LinearLayout>
 
