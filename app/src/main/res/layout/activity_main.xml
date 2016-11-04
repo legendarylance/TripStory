@@ -19,8 +19,7 @@ tools:context="ca.utoronto.ece1778.tripstory.MainActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".5">
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="match_parent"
@@ -29,7 +28,8 @@ tools:context="ca.utoronto.ece1778.tripstory.MainActivity">
             android:text="Medium Text"
             android:id="@+id/textView"
             android:layout_gravity="center_horizontal"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="20dp"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -41,84 +41,90 @@ tools:context="ca.utoronto.ece1778.tripstory.MainActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".25">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/btn_star_big_on"
-            android:id="@+id/imageButton1"
-            android:layout_weight=".25"
-            android:clickable="true"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/btn_star_big_on"
+                android:id="@+id/imageButton1"
+                android:layout_weight=".24"
+                android:clickable="true"/>
 
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/btn_star_big_on"
-            android:id="@+id/imageButton2"
-            android:layout_weight=".25"
-            android:clickable="true"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/btn_star_big_on"
+                android:id="@+id/imageButton2"
+                android:layout_weight=".24"
+                android:clickable="true"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@android:drawable/btn_star_big_on"
                 android:id="@+id/imageButton3"
-                android:layout_weight=".25"
+                android:layout_weight=".24"
                 android:clickable="true"/>
-
-        </LinearLayout>
-        </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".25">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@android:drawable/btn_star_big_on"
                 android:id="@+id/imageButton4"
-                android:layout_weight=".25"
-                android:clickable="true"/>
-
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star_big_on"
-                android:id="@+id/imageButton5"
-                android:layout_weight=".25"
-                android:clickable="true"
-                />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/btn_star_big_on"
-                android:id="@+id/imageButton6"
-                android:layout_weight=".25"
+                android:layout_weight=".24"
                 android:clickable="true"/>
 
         </LinearLayout>
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight=".25">-->
+
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:srcCompat="@android:drawable/btn_star_big_on"-->
+                <!--android:id="@+id/imageButton4"-->
+                <!--android:layout_weight=".25"-->
+                <!--android:clickable="true"/>-->
+
+
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:srcCompat="@android:drawable/btn_star_big_on"-->
+                <!--android:id="@+id/imageButton5"-->
+                <!--android:layout_weight=".25"-->
+                <!--android:clickable="true"-->
+                <!--/>-->
+
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:srcCompat="@android:drawable/btn_star_big_on"-->
+                <!--android:id="@+id/imageButton6"-->
+                <!--android:layout_weight=".25"-->
+                <!--android:clickable="true"/>-->
+
+        <!--</LinearLayout>-->
 
 
 
-</LinearLayout>
+<!--</LinearLayout>-->
 
 </LinearLayout>
 </RelativeLayout>
