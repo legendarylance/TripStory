@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Select a Theme"
+        android:id="@+id/textView3"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:layout_weight="0.04"
+        android:paddingTop="20dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Underwater Adventure"
+        android:id="@+id/button4"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.04" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Trip to the Zoo"
+        android:id="@+id/button5"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.04" />
+
+</LinearLayout>
