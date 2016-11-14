@@ -1,6 +1,6 @@
 [
   { "frame"  : 1,
-    "framePic"  : "frame1",
+    "framePic"  : "f1o1",
     "question"  : "What animals did you find?",
     "statement"  : "We saw a",
     "im1" : "fish",
@@ -12,7 +12,7 @@
   },
 
   { "frame"  : 2,
-    "framePic"  : "frame1",
+    "framePic"  : "f2o1",
     "question"  : "What did you eat?",
     "statement"  : "We ate a",
     "im1" : "cat",
@@ -24,7 +24,7 @@
   },
 
   { "frame"  : 3,
-    "framePic"  : "frame1",
+    "framePic"  : "f3o1",
     "question"  : "What animal did you ride?",
     "statement"  : "We rode a",
     "im1" : "horse",

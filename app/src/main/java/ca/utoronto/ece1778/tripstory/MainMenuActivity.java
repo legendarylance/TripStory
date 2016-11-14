@@ -1,8 +1,11 @@
 package ca.utoronto.ece1778.tripstory;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +18,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnPausedListener;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -28,6 +42,10 @@ public class MainMenuActivity extends AppCompatActivity {
     String mCurrentPhotoPath;
     File storageDirExtract;
     public File photoFile;
+    // Create a storage reference from our app
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReferenceFromUrl("gs://tripstory-47cf0.appspot.com");
+    private UploadTask uploadTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +57,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
         // Request Permissions
         if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {
-
-
-
             if (!checkIfAlreadyhavePermission()) {
                 System.out.println("Requesting Permission = ");
-
                 requestForSpecificPermission();
             }
         }
@@ -64,15 +78,8 @@ public class MainMenuActivity extends AppCompatActivity {
                 // Create intent to launch Main Activity from here
                 Intent intent = new Intent(MainMenuActivity.this, ThemeSelectorActivity.class);
 
-                if (photoFile.exists()) {
-                    intent.putExtra("photoFile", photoFile.getAbsolutePath());
-                }
-
                 //Start theme selector activity
-                System.out.println("intent (before) = " + intent);
                 startActivity(intent);
-                System.out.println("intent (after) = " + intent);
-
 
             }
         });
@@ -87,7 +94,6 @@ public class MainMenuActivity extends AppCompatActivity {
                 Snackbar.make(view, "Camera Launched", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-
             }
         });
 
@@ -96,9 +102,13 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                System.out.println("ViewnButton !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " );
+                System.out.println("ViewButton !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " );
 
-                // Open up the .jpg file or pdf using ViewFlipper here
+                // Create intent to launch Main Activity from here
+                Intent intent = new Intent(MainMenuActivity.this, ListActivity.class);
+
+                //Start theme selector activity
+                startActivity(intent);
 
             }
         });
@@ -119,23 +129,14 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     private void requestForSpecificPermission() {
-        //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.GET_ACCOUNTS, Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_SMS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
-        //Toast.makeText(this, " requestForSpecificPermission ",
-        //        Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        // Hardset to permission granted
-        //grantResults[0] = PackageManager.PERMISSION_GRANTED;
         switch (requestCode) {
             case 101:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //getGPS();
-                    //Toast.makeText(this, " Refreshing Gallery ... ",
-                    //        Toast.LENGTH_LONG).show();
-                    //setImageExtract();
 
                 } else {
 
@@ -157,25 +158,26 @@ public class MainMenuActivity extends AppCompatActivity {
         try {
             photoFile = createImageFile();
 
-            // Upload the image to FireBase
-            //uploadImages(photoFile.getAbsolutePath());
+            // Once we have a filename, the filename is set as a shared preference and used throughout.
+            SharedPreferences sharedPref = this.getSharedPreferences("ca.utoronto.ece1778.tripstory", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("personaluser", photoFile.getAbsolutePath());
+            editor.commit();
+
         } catch (IOException ex) {
             System.err.println("photoFile not created =(");
             System.err.println(ex);
         }
-//The two lines of code below were commented out at first.
-//They were eventually added when I tried to save it with a custom name and destination
+        //The two lines of code below were commented out at first.
+        //They were eventually added when I tried to save it with a custom name and destination
         Uri photoURI = FileProvider.getUriForFile(this,
                 "ca.utoronto.ece1778.tripstory.fileprovider",
                 photoFile);
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
         takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT);
         startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-        // Upload the image to FireBase
-        //uploadImages(photoFile.getAbsolutePath());
 
     }
-
 
     public File createImageFile() throws IOException {
         // Create an image file name
@@ -214,9 +216,6 @@ public class MainMenuActivity extends AppCompatActivity {
                 // Image capture failed, advise user
             }
         }
-
-        // Upload the image to FireBase
-        //uploadImages(photoFile.getAbsolutePath());
 
     }
 
