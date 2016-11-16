@@ -1,0 +1,5 @@
+<transitionManager xmlns:android="http://schemas.android.com/apk/res/android">
+    <transition android:fromScene="@layout/activity_mainmenu"
+        android:toScene="@layout/activity_themeselector"
+        android:transition="@animator/flipping"/>
+</transitionManager>
