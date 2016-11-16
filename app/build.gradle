@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
-
+//apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 24
@@ -30,7 +30,21 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.android.support:design:24.2.1'
-
+    compile 'com.felipecsl:gifimageview:2.1.0'
+    compile 'com.android.support:cardview-v7:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    // Firebase
+    compile 'com.google.firebase:firebase-database:9.0.0'
+    compile 'com.google.firebase:firebase-auth:9.0.0'
+    compile 'com.google.firebase:firebase-config:9.0.0'
+    compile 'com.google.android.gms:play-services-appinvite:9.0.0'
+    compile 'com.google.firebase:firebase-messaging:9.0.0'
+    compile 'com.google.android.gms:play-services-ads:9.0.0'
+    compile 'com.google.firebase:firebase-crash:9.0.0'
+    compile 'com.google.firebase:firebase-analytics:9.0.0'
+    compile 'com.google.firebase:firebase-storage:9.0.0'
     testCompile 'junit:junit:4.12'
 
 }
+
+apply plugin: 'com.google.gms.google-services'
